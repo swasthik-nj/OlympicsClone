@@ -3,98 +3,582 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blogs</title>
+    <link rel="icon" href="./assets/images/1.jpg" type="image/x-icon" />
+    <title>Paris Olympics 2024 - Blogs</title>
   </head>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-    h1{
-      text-align: center;
-      padding-top: 2rem ;
-      text-decoration: underline;
+      scroll-behavior: smooth;
     }
 
-    main {
+    body {
+      font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
       width: 100%;
-      padding: 5rem 6rem;
+      top: 0;
+      z-index: 10;
+      padding: 1rem 5rem;
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgb(27, 25, 25, 0.95);
+      color: rgb(0, 255, 38);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    nav h1 {
+      font-size: 2.1rem;
+      font-weight: 900;
+    }
+
+    .menu-toggle {
+      display: none;
       flex-direction: column;
-      gap: 5rem;
+      cursor: pointer;
+      gap: 5px;
     }
-    div > img {
-      width: 30%;
-      height: 13rem;
-      border-radius: 15px;
+
+    .menu-toggle span {
+      width: 30px;
+      height: 3px;
+      background-color: rgb(0, 255, 38);
+      transition: all 0.3s ease;
     }
-    main > div {
+
+    nav ul {
       display: flex;
-      gap: 5rem;
+      gap: 3rem;
+      list-style: none;
       align-items: center;
     }
-    .box {
-      gap: 20px;
-      max-width: 50%;
+
+    nav ul li a {
+      color: aliceblue;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: all ease-in 0.2s;
+      padding: 10px 20px;
+      border-radius: 20px;
+    }
+
+    nav ul li a:hover {
+      color: rgb(0, 255, 38);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    nav ul li a.active {
+      color: rgb(0, 255, 38);
+      border-bottom: 2px solid rgb(0, 255, 38);
+    }
+
+    /* Header Section */
+    .header-section {
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+      color: white;
+    }
+
+    .header-section h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-section p {
       font-size: 1.3rem;
-      color: rgb(38, 37, 37);
-      font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
+      opacity: 0.9;
+    }
+
+    /* Main Content */
+    main {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 6rem 6rem;
       display: flex;
-      font-weight: 100;
       flex-direction: column;
+      gap: 4rem;
+    }
+
+    .blog-card {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .blog-card:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .blog-card img {
+      width: 400px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .blog-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .blog-meta {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .blog-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .blog-content h2 {
+      font-size: 2rem;
+      color: #333;
+      line-height: 1.3;
+    }
+
+    .blog-content p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .blog-tags {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
 
     button {
-      width: 100px;
-      padding: 10px 10px;
-      text-align: center;
-      font-weight: 900;
-      background-color: bisque;
-      border-radius: 20px;
+      width: fit-content;
+      padding: 12px 30px;
+      font-size: 1rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 25px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+
+    /* Footer */
+    footer {
+      background-color: rgb(27, 25, 25);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    footer p {
+      opacity: 0.7;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      nav {
+        padding: 1rem 2rem;
+      }
+
+      nav h1 {
+        font-size: 1.8rem;
+      }
+
+      nav ul {
+        gap: 2rem;
+      }
+
+      nav ul li a {
+        font-size: 1rem;
+      }
+
+      .header-section h1 {
+        font-size: 3rem;
+      }
+
+      main {
+        padding: 2rem 3rem 4rem;
+      }
+
+      .blog-card {
+        flex-direction: column !important;
+        gap: 2rem;
+      }
+
+      .blog-card img {
+        width: 100%;
+        max-width: 500px;
+        height: 250px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      nav h1 {
+        font-size: 1.5rem;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      nav ul {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: rgb(27, 25, 25, 0.98);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        gap: 0;
+        padding: 2rem 0;
+      }
+
+      nav ul.active {
+        left: 0;
+      }
+
+      nav ul li {
+        margin: 1rem 0;
+      }
+
+      nav ul li a {
+        font-size: 1.2rem;
+        padding: 1rem;
+        display: block;
+      }
+
+      .header-section {
+        padding: 6rem 1rem 3rem;
+      }
+
+      .header-section h1 {
+        font-size: 2.5rem;
+      }
+
+      .header-section p {
+        font-size: 1.1rem;
+      }
+
+      main {
+        padding: 2rem 1.5rem 4rem;
+        gap: 3rem;
+      }
+
+      .blog-card {
+        padding: 1.5rem;
+        gap: 1.5rem;
+      }
+
+      .blog-card img {
+        height: 200px;
+      }
+
+      .blog-content h2 {
+        font-size: 1.5rem;
+      }
+
+      .blog-content p {
+        font-size: 1rem;
+      }
+
+      .blog-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav h1 {
+        font-size: 1.2rem;
+      }
+
+      .header-section h1 {
+        font-size: 2rem;
+      }
+
+      .header-section p {
+        font-size: 1rem;
+      }
+
+      main {
+        padding: 1.5rem 1rem 3rem;
+      }
+
+      .blog-card {
+        padding: 1rem;
+      }
+
+      .blog-card img {
+        height: 180px;
+      }
+
+      .blog-content h2 {
+        font-size: 1.3rem;
+      }
+
+      .blog-content p {
+        font-size: 0.95rem;
+      }
+
+      .tag {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+      }
     }
   
   </style>
   <body>
-    <h1>Blogs</h1>
-    <main>
+    <!-- Navigation -->
+    <nav>
+      <h1>Olympics <span style="font-size: 1rem">2024</span></h1>
       
-      <div>
-        <img src="https://as1.ftcdn.net/v2/jpg/07/10/88/34/1000_F_710883424_26sYKTATfI01aE7QBSUnVsnrQYSk6qXs.jpg" alt="" />
-        <div class="box">
-          <h3>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit
-            commodi ipsam similique aut aliquam eos, corrupti deleniti iste in
-            ad.
-          </h3>
-          <button>Read</button>
-        </div>
+      <div class="menu-toggle" id="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
 
-      <div>
-        <img src="https://as2.ftcdn.net/v2/jpg/07/94/69/49/1000_F_794694980_uh4RiLqMF98eeKkeLcgasn9je32mGRNs.jpg" alt="" />
-        <div class="box">
-          <h3>
-            dsvsdfvlorem Lorem, ipsum dolor sit amet consectetur adipisicing
-            elit. Quibusdam culpa nisi deserunt ducimus animi, saepe sed velit
-            accusantium optio!
-          </h3>
-          <button>Read</button>
+      <ul id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#highlighscroll">Highlights</a></li>
+        <li><a href="index.html#ticket">Tickets</a></li>
+        <li><a href="blogs.html" class="active">Blogs</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="header-section">
+      <h1>🏅 Olympics Blogs</h1>
+      <p>Stories, insights, and highlights from Paris 2024</p>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      
+      <article class="blog-card">
+        <img src="https://as1.ftcdn.net/v2/jpg/07/10/88/34/1000_F_710883424_26sYKTATfI01aE7QBSUnVsnrQYSk6qXs.jpg" alt="Olympic Athletics" />
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span>📅 August 5, 2024</span>
+            <span>👤 By Sarah Johnson</span>
+            <span>⏱️ 5 min read</span>
+          </div>
+          <h2>Breaking Records: The Most Memorable Moments from Paris 2024</h2>
+          <p>
+            The Paris 2024 Olympics has witnessed some extraordinary athletic performances that will be remembered for generations. From breathtaking world records in track and field to stunning upsets in swimming, this year's games have delivered unforgettable moments. Athletes from around the globe pushed the boundaries of human achievement, showcasing dedication, skill, and the true Olympic spirit.
+          </p>
+          <div class="blog-tags">
+            <span class="tag">Athletics</span>
+            <span class="tag">Records</span>
+            <span class="tag">Highlights</span>
+          </div>
+          <button onclick="alert('Full article coming soon!')">Read More</button>
         </div>
-      </div>
-      <div>
-        <img src="https://as2.ftcdn.net/v2/jpg/07/46/23/75/1000_F_746237584_w7oEh3TqljsLNCQrDiceumy8nYmXOx9i.jpg" alt="" />
-        <div class="box">
-          <h3>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit
-            commodi ipsam similique aut aliquam eos, corrupti deleniti iste in
-            ad.
-          </h3>
-          <button>Read</button>
+      </article>
+
+      <article class="blog-card">
+        <img src="https://as2.ftcdn.net/v2/jpg/07/94/69/49/1000_F_794694980_uh4RiLqMF98eeKkeLcgasn9je32mGRNs.jpg" alt="Olympic Swimming" />
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span>📅 August 3, 2024</span>
+            <span>👤 By Michael Chen</span>
+            <span>⏱️ 4 min read</span>
+          </div>
+          <h2>Rising Stars: Young Athletes Who Stole the Show at Paris 2024</h2>
+          <p>
+            This year's Olympics introduced the world to incredible young talent that's reshaping the future of sports. From teenage gymnasts achieving perfect scores to young swimmers breaking veteran records, these rising stars have captured hearts worldwide. Their stories of perseverance, training, and triumph remind us that the Olympic spirit knows no age limits.
+          </p>
+          <div class="blog-tags">
+            <span class="tag">Swimming</span>
+            <span class="tag">Youth</span>
+            <span class="tag">Inspiration</span>
+          </div>
+          <button onclick="alert('Full article coming soon!')">Read More</button>
         </div>
-      </div>
+      </article>
+
+      <article class="blog-card">
+        <img src="https://as2.ftcdn.net/v2/jpg/07/46/23/75/1000_F_746237584_w7oEh3TqljsLNCQrDiceumy8nYmXOx9i.jpg" alt="Olympic Gymnastics" />
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span>📅 August 1, 2024</span>
+            <span>👤 By Emma Williams</span>
+            <span>⏱️ 6 min read</span>
+          </div>
+          <h2>Behind the Scenes: Life in the Olympic Village</h2>
+          <p>
+            Ever wondered what happens when thousands of elite athletes from 200+ countries live together? The Olympic Village is more than just accommodation—it's a unique melting pot of cultures, languages, and sporting excellence. From the dining halls serving cuisine from every corner of the world to the friendships formed across borders, life in the village embodies the true spirit of international unity and sportsmanship.
+          </p>
+          <div class="blog-tags">
+            <span class="tag">Culture</span>
+            <span class="tag">Behind The Scenes</span>
+            <span class="tag">Community</span>
+          </div>
+          <button onclick="alert('Full article coming soon!')">Read More</button>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <img src="https://as1.ftcdn.net/v2/jpg/06/91/27/82/1000_F_691278233_s4YrIi0WYv6gczcj5zv834S3MrvircXn.jpg" alt="Olympic Team Sports" />
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span>📅 July 30, 2024</span>
+            <span>👤 By David Martinez</span>
+            <span>⏱️ 5 min read</span>
+          </div>
+          <h2>Team Spirit: How Unity Leads to Olympic Gold</h2>
+          <p>
+            In team sports, individual brilliance must merge with collective strategy. This blog explores how Olympic teams prepare mentally and physically, building chemistry that translates into gold medal performances. From basketball to rowing, we analyze the dynamics that turn good teams into champions and examine the leadership, trust, and communication required to succeed at the highest level.
+          </p>
+          <div class="blog-tags">
+            <span class="tag">Team Sports</span>
+            <span class="tag">Strategy</span>
+            <span class="tag">Gold Medal</span>
+          </div>
+          <button onclick="alert('Full article coming soon!')">Read More</button>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <img src="https://as1.ftcdn.net/v2/jpg/07/69/11/08/1000_F_769110844_dGuomgxtyW2QHNUF6kAn99nneCCSZycW.jpg" alt="Paris Olympics Venue" />
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span>📅 July 28, 2024</span>
+            <span>👤 By Sophie Laurent</span>
+            <span>⏱️ 7 min read</span>
+          </div>
+          <h2>Paris 2024: Sustainability and Innovation in the Olympic Games</h2>
+          <p>
+            Paris 2024 set new standards for sustainable Olympic Games. From eco-friendly venues and renewable energy to zero-waste initiatives and carbon-neutral operations, these Olympics demonstrate how major sporting events can prioritize environmental responsibility. Discover the innovative technologies and green practices that made Paris 2024 the most sustainable Games in history, setting a blueprint for future host cities.
+          </p>
+          <div class="blog-tags">
+            <span class="tag">Sustainability</span>
+            <span class="tag">Innovation</span>
+            <span class="tag">Paris 2024</span>
+          </div>
+          <button onclick="alert('Full article coming soon!')">Read More</button>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <img src="https://as2.ftcdn.net/v2/jpg/07/40/95/55/1000_F_740955518_r9nERzR55L0QEb1yAvhvmQRXHayLn6Jz.jpg" alt="Olympic Closing Ceremony" />
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span>📅 July 26, 2024</span>
+            <span>👤 By James Anderson</span>
+            <span>⏱️ 4 min read</span>
+          </div>
+          <h2>The Journey to Paris: Athletes' Training Regimens Revealed</h2>
+          <p>
+            What does it take to become an Olympic athlete? This comprehensive look into the training regimens of Paris 2024 competitors reveals the years of dedication, sacrifice, and scientific preparation required to compete at the world's highest level. From nutrition plans to mental conditioning, from injury prevention to peak performance strategies, learn about the incredible commitment that goes into every Olympic moment.
+          </p>
+          <div class="blog-tags">
+            <span class="tag">Training</span>
+            <span class="tag">Preparation</span>
+            <span class="tag">Athletes</span>
+          </div>
+          <button onclick="alert('Full article coming soon!')">Read More</button>
+        </div>
+      </article>
+
     </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2024 Paris Olympics. All rights reserved.</p>
+      <p style="margin-top: 0.5rem;">🏅 Never miss a moment!</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // Mobile menu toggle
+      const mobileMenu = document.getElementById("mobile-menu");
+      const navMenu = document.getElementById("nav-menu");
+
+      mobileMenu.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+      });
+
+      // Close menu when clicking on a link
+      document.querySelectorAll("#nav-menu li a").forEach(link => {
+        link.addEventListener("click", () => {
+          navMenu.classList.remove("active");
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!navMenu.contains(e.target) && !mobileMenu.contains(e.target)) {
+          navMenu.classList.remove("active");
+        }
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    </script>
   </body>
 </html>
